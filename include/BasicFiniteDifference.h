@@ -7,19 +7,19 @@
 struct SpaceAndTime
 {
 	double spaceX;
-	double spaceGrid;
+	int numGrid;
 	double timeDomain;
-	double timeStep;
+	int numTimeStep;
 };
 
 class FiniteDifference{
 private:
 	double diffusionCoefficient;
 	std::vector<double> velocityInDomain;
-	SpaceAndTime 1dSpaceAndTime;
+	SpaceAndTime oneDimSpaceAndTime;
 	
-	int numSpaceGrids;
-	int numTimeSteps;
+	double gridWidth;
+	double timeStep;
 public:
 	FiniteDifference();
 	~FiniteDifference();
@@ -31,8 +31,8 @@ public:
 	void setVelocityInDomian();
 	std::vector<double>& getVelocityInDomain();
 	
-	int calNumOfGridInSpace();
-	int calNumTimesteps();
+	void calGridInSpace();
+	void calTimestep();
 	
 	void printNumSpaceGrids();
 	void printNumTimeSteps();
