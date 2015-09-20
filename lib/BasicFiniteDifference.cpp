@@ -54,7 +54,8 @@ void FiniteDifference::setSpaceAndTime()
 	}
 	fileSpaceAndTime.open("spaceandtime.dat");
 	fileSpaceAndTime >> oneDimSpaceAndTime.spaceX >> oneDimSpaceAndTime.numGrid >> 
-					oneDimSpaceAndTime.timeDomain >> oneDimSpaceAndTime.numTimeStep;
+					oneDimSpaceAndTime.timeDomain >> oneDimSpaceAndTime.numTimeStep >>
+					diffusionCoefficient;
 	fileSpaceAndTime.close();
 	try
 	{
@@ -74,6 +75,7 @@ void FiniteDifference::setVelocityDomain()
 	if (!fileVelocity.is_open())
 	{
 		std::cerr << "Fail to open the file on velocity correctly.\n";
+		abort();
 	}
 	fileVelocity.open("velocity.dat");
 	double tempVelocity;
@@ -92,14 +94,24 @@ void FiniteDifference::setVelocityDomain()
 	std::cout << "Finish loading the parameters of velocity in the domain.\n";
 }
 
-double FiniteDifference::getSpaceDomain()
+double FiniteDifference::getSpaceDomain() const
 {
 	return oneDimSpaceAndTime.spaceX;
 }
 
-double FiniteDifference::getTimeLength()
+double FiniteDifference::getTimeLength() const
 {
 	return oneDimSpaceAndTime.timeDomain;
+}
+
+double FiniteDifference::getDiffusionCoefficient() const
+{
+	
+}
+
+std::vector<double>& FiniteDifference::getVelocityInDomain()
+{
+	return velocityInDomain;
 }
 
 void FiniteDifference::calGridInSpace()
@@ -110,4 +122,33 @@ void FiniteDifference::calGridInSpace()
 void FiniteDifference::calTimeStep()
 {
 	timeStep = oneDimSpaceAndTime.timeDomain / oneDimSpaceAndTime.numTimeStep;
+}
+
+double FiniteDifference::getGridWidth() const 
+{
+	return gridWidth;
+}
+
+double FiniteDifference::getTimeStep() const 
+{
+	return timeStep;
+}
+
+void FiniteDifference::printGridInfo() const
+{
+	std::cout << "The number of grids in the whole domain is " <<
+				oneDimSpaceAndTime.numGrid << std::endl;
+	std::cout << "Each grid has width " << gridWidth << std::endl;
+}
+
+void FiniteDifference::printTimeInfo() const
+{
+	std::cout << "The number of time steps is " << oneDimSpaceAndTime.numTimeStep <<
+				std::endl;
+	std::cout << "The time step is " << timeStep << std::endl;
+}
+
+void FiniteDifference::printDomainInfo()
+{
+	std::cout << "This is the basic class of finite difference method.\n"
 }

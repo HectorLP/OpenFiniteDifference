@@ -22,21 +22,26 @@ private:
 	double timeStep;
 public:
 	FiniteDifference();
-	~FiniteDifference();
+	virtual ~FiniteDifference();
 	
 	void setSpaceAndTime();
-	double getSpaceDomain();
-	double getTimeLength();
+	double getSpaceDomain() const;
+	double getTimeLength() const;
 	
 	void setVelocityInDomian();
-	std::vector<double>& getVelocityInDomain();
+	std::vector<double>& getVelocityInDomain() const;
+	
+	double getDiffusionCeofficient() const;
 	
 	void calGridInSpace();
-	void calTimestep();
+	double getGridWidth() const;
 	
-	void printNumSpaceGrids();
-	void printNumTimeSteps();
-	virtual void printDomainInformation() = 0;
+	void calTimeStep();
+	double getTimeStep() const;
+	
+	void printGridInfo() const;
+	void printTimeInfo() const;
+	virtual void printDomainInfo() = 0;
 };
 
 #endif
